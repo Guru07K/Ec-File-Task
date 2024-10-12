@@ -16,14 +16,15 @@ exports.Signup = async(req, res, next)=>{
    
     let avatar = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT7tyEA8rRXZabfLf_AwxDy-vQ91ecjMJjxVw&s';
     let publicId;
-    if(req.body.avatar){
-        avatar = req.body.avatar
-        publicId = req.body.publicId
+    // if(req.body.avatar){
+    //     avatar = req.body.avatar
+    //     publicId = req.body.publicId
+    // }
+
+    if(req.file){
+        avatar = `http://127.0.0.1:8000/uploads/user/${req.file.originalname}`
+        // avatar = `https://ec-file-task.onrender.com/uploads/user/${req.file.originalname}`
     }
-
-
-
-   
 
     const regaxCheckfirstChar = /^[6-9]/
     const regaxCheckCount = /\d{10}/
