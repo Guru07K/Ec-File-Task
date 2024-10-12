@@ -2,6 +2,7 @@ const Admin = require("../model/admin")
 const User = require("../model/user")
 const jwt= require("jsonwebtoken")
 const bcrypt = require('bcryptjs')
+const ErrorHandler = require("../utils/errorhandler")
 
 
 exports.createAdmin = async(req, res,next) => {
