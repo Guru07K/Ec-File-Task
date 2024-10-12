@@ -49,7 +49,7 @@ exports.Signup = async(req, res, next)=>{
     const {password:removedPssword, ...rest} = user.toObject()
 
 
-    const verifyUrl = `http://localhost:5173/verifyemail/${user._id}`
+    const verifyUrl = `https://ec-file-task.onrender.com/verifyemail/${user._id}`
     sendEmail(email, verifyUrl)
 
     res.status(200).json({
