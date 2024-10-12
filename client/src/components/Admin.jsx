@@ -6,6 +6,7 @@ const Admin = () => {
   const navigate = useNavigate()
     const [avatar, setAvatarUrl] = useState("")
     const [publicId, setPublicId] = useState("")
+    const [ProfileUploading, setProfileUploading] = useState(false)
 
     const [adminData, setAdmindata] = useState({
         name : '',
@@ -16,6 +17,7 @@ const Admin = () => {
 
     const onchange = async(e) => {
       if(e.target.id == 'profile'){
+        setProfileUploading(true)
           const file = e.target.files[0]
           const formData = new FormData()
           formData.append('file', file)
@@ -31,6 +33,7 @@ const Admin = () => {
                   setPublicId(data.public_id)
                   setAvatarUrl(data.url)
             })
+            setProfileUploading(false)
       }else{
         setAdmindata({...adminData, [e.target.id]: e.target.value })
       }
@@ -72,7 +75,10 @@ const Admin = () => {
         <input onChange={onchange} type="email" className='border p-3 rounded-lg  focus:outline-none' placeholder='Email' id='email'/>
         <input onChange={onchange} type="number" className='border p-3 rounded-lg  focus:outline-none' placeholder='Mobile' id='mobileNo'/>
         <input onChange={onchange} type="file" className='border p-3 rounded-lg  focus:outline-none' id='profile' />
-        <button className='bg-green-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'> SIGN UP </button>
+        
+        <button disabled={ProfileUploading} className='bg-green-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'> 
+          {ProfileUploading ? 'Image uploading.....' : 'SIGN UP '} 
+        </button>
     </form>
 
     <div className='flex gap-2 mt-3'>
