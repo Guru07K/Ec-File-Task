@@ -7,6 +7,7 @@ const SignUp = () => {
     const [avatar, setAvatarUrl] = useState("")
     const [publicId, setPublicId] = useState("")
     const [ProfileUploading, setProfileUploading] = useState(false)
+    const [loading, setloading] = useState(false)
 
     const [userData, serUserData] = useState({
         name : '',
@@ -43,7 +44,7 @@ const SignUp = () => {
     const submitHandler = async (e) => {
         e.preventDefault()
        
-
+        setloading(true)
         await fetch('/ecfile/user/signup',{
             method: 'POST',
             headers : {
@@ -60,9 +61,11 @@ const SignUp = () => {
         }).then(res => res.json())
           .then(data => {
             if(data.success){
+                setloading(false)
                 alert('Verify Email to login')
                 navigate('/signin')
             }else{
+                setloading(false)
                 alert(data.message)
             }
  
@@ -78,8 +81,8 @@ const SignUp = () => {
             <input onChange={onchange} type="email" className='border p-3 rounded-lg  focus:outline-none' placeholder='Email' id='email'/>
             <input onChange={onchange} type="number" className='border p-3 rounded-lg  focus:outline-none' placeholder='Mobile' id='mobileNo'/>
             <input onChange={onchange} type="file" className='border p-3 rounded-lg  focus:outline-none' id='profile' />
-            <button disabled={ProfileUploading} className='bg-green-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'> 
-               {ProfileUploading ? 'Image uploading.....' : 'SIGN UP '} 
+            <button disabled={ProfileUploading || loading} className='bg-green-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'> 
+                 {ProfileUploading || loading ? 'Loading' : ' SIGN UP'} 
             </button>
         </form>
 

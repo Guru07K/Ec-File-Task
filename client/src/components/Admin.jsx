@@ -7,6 +7,7 @@ const Admin = () => {
     const [avatar, setAvatarUrl] = useState("")
     const [publicId, setPublicId] = useState("")
     const [ProfileUploading, setProfileUploading] = useState(false)
+    const [loading, setloading] = useState(false)
 
     const [adminData, setAdmindata] = useState({
         name : '',
@@ -41,7 +42,7 @@ const Admin = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault()
-
+    setloading(true)
     await fetch('/ecfile/admin/create-admin',{
         method: 'POST',
         headers : {
@@ -58,8 +59,10 @@ const Admin = () => {
     }).then(res => res.json())
       .then(data => {
         if(data.success){
+          setloading(false)
             navigate('/admin-signin')
         }else{
+            setloading(false)
             alert(data.message)
         }
 
@@ -76,8 +79,8 @@ const Admin = () => {
         <input onChange={onchange} type="number" className='border p-3 rounded-lg  focus:outline-none' placeholder='Mobile' id='mobileNo'/>
         <input onChange={onchange} type="file" className='border p-3 rounded-lg  focus:outline-none' id='profile' />
         
-        <button disabled={ProfileUploading} className='bg-green-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'> 
-          {ProfileUploading ? 'Image uploading.....' : 'SIGN UP '} 
+        <button disabled={ProfileUploading || loading} className='bg-green-700 rounded-lg p-3 text-white hover:opacity-90 disabled:opacity-70'> 
+          {ProfileUploading || loading ? 'Loading' : ' SIGN UP'} 
         </button>
     </form>
 
