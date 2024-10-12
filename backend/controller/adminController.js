@@ -87,6 +87,6 @@ exports.GetUsers = async(req, res,next) => {
     res.json({
         success: true,
         verifiedUsers
-    })
+    })  
 
 }

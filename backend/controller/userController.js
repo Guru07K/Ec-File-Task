@@ -22,8 +22,8 @@ exports.Signup = async(req, res, next)=>{
     // }
 
     if(req.file){
-        avatar = `http://127.0.0.1:8000/uploads/user/${req.file.originalname}`
-        // avatar = `https://ec-file-task.onrender.com/uploads/user/${req.file.originalname}`
+        // avatar = `http://127.0.0.1:8000/uploads/user/${req.file.originalname}`
+        avatar = `https://ec-file-task.onrender.com/uploads/user/${req.file.originalname}`
     }
 
     const regaxCheckfirstChar = /^[6-9]/
